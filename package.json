@@ -4,6 +4,13 @@
   "description": "JS REPL for slack.",
   "main": "index.js",
   "dependencies": {
+    "babel-core": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-node6": "^11.0.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "babel-preset-stage-3": "^6.5.0",
     "botkit": "^0.2.0"
   },
   "devDependencies": {},
