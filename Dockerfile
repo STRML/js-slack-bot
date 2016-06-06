@@ -8,6 +8,8 @@ RUN cd /opt/bot && npm install
 # Add last so we can avoid reinstall
 COPY index.js /opt/bot
 
+ENV NODE_ENV '/opt/bot/'
+
 CMD [ "node", \
       "/opt/bot/index.js" \
 ]
