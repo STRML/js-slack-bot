@@ -5,8 +5,9 @@ const vm = require('vm');
 const fs = require('fs');
 const path = require('path');
 const babel = require('babel-core');
+const entities = new (require('html-entities').AllHtmlEntities)();
 
-const BABEL_PRESETS = ['es2015-loose', 'stage-0', 'stage-1', 'stage-2', 'stage-3', 'react'];
+const BABEL_PRESETS = ['es2015-loose', 'react', 'stage-0'];
 const BABEL_PRESETS_NODE6 = ['node6'].concat(BABEL_PRESETS.slice(1));
 const BABEL_PLUGINS = ['transform-decorators-legacy'];
 
@@ -25,7 +26,6 @@ controller.spawn({
 const codeRegex = /(^`+|`+$)/g;
 const babelRegex = /^babel(-node6)?:?\s*([\s\S]*)/i;
 controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], function(bot, message) {
-  console.log("heard it, ", message);
   let {text} = message;
   text = text.replace(codeRegex, '');
 
@@ -38,7 +38,8 @@ controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], func
     if (match && match.length) {
       // Get raw code
       let code = match[match.length - 1];
-      code = code.replace(codeRegex, '');
+      // Comes in escaped
+      code = entities.decode(code.replace(codeRegex, ''));
 
       // Get presets
       const isNode6 = match[1] === '-node6';
@@ -54,7 +55,7 @@ controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], func
     const result = vm.runInContext(text, createSandbox());
     bot.reply(message, `\`${result.toString()}\``);
   } catch (e) {
-    bot.reply(message, `\`${e.stack}\``);
+    bot.reply(message, '```' + e.stack + '```');
   }
 });
 
