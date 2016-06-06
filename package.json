@@ -1,0 +1,27 @@
+{
+  "name": "js-slack-bot",
+  "version": "1.0.0",
+  "description": "JS REPL for slack.",
+  "main": "index.js",
+  "dependencies": {
+    "botkit": "^0.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/STRML/js-slack-bot.git"
+  },
+  "keywords": [
+    "slack",
+    "js"
+  ],
+  "author": "Samuel Reed <samuel.trace.reed@gmail.com> (http://strml.net/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/STRML/js-slack-bot/issues"
+  },
+  "homepage": "https://github.com/STRML/js-slack-bot#readme"
+}
