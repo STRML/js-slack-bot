@@ -1,4 +1,4 @@
-bot:
-    build: ./
-    mem_limit: 128m
-    restart: always
+slackbot:
+  build: ./
+  mem_limit: 128m
+  restart: always

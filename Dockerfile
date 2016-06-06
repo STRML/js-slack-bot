@@ -2,14 +2,13 @@
 FROM mhart/alpine-node:6.2.1
 
 # install deps & copy
-COPY package.json .token /opt/bot/
-RUN cd /opt/bot && npm install
+WORKDIR /opt/bot
+COPY package.json .token ./
+RUN npm install
 
 # Add last so we can avoid reinstall
-COPY index.js /opt/bot
-
-ENV NODE_ENV '/opt/bot/'
+COPY index.js .
 
 CMD [ "node", \
-      "/opt/bot/index.js" \
+      "index.js" \
 ]
