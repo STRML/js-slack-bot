@@ -35,8 +35,6 @@ const crappyDoubleQuoteRegex = /([“”])/g;
 const babelRegex = /^babel(-node6)?:?\s*([\s\S]*)/i;
 controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], function(bot, message) {
   let {text} = message;
-  text = text.replace(codeRegex, '');
-  text = text.replace(crappySingleQuoteRegex, "'").replace(crappyDoubleQuoteRegex, '"');
 
   // Ping
   if (text === 'ping') return bot.reply('pong');
@@ -48,7 +46,7 @@ controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], func
       // Get raw code
       let code = match[match.length - 1];
       // Comes in escaped
-      code = entities.decode(code.replace(codeRegex, ''));
+      code = cleanupCode(code);
 
       // Get presets
       const isNode6 = match[1] === '-node6';
@@ -58,12 +56,23 @@ controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], func
       let transformed = babel.transform(code, {presets, plugins: BABEL_PLUGINS, highlightCode: false}).code;
       transformed = transformed.replace('"use strict";\n\n', '');
       return bot.reply(message, '```' + transformed + '```');
+    } else {
+      // Regular eval
+      text = cleanupCode(text);
+      const result = vm.run(text);
+      bot.reply(message, `\`${result && result.toString()}\``);
     }
 
-    // Regular eval
-    const result = vm.run(text);
-    bot.reply(message, `\`${result && result.toString()}\``);
   } catch (e) {
     bot.reply(message, '```' + e.message + '```');
   }
 });
+
+function cleanupCode(text) {
+  return entities.decode(
+    text
+    .replace(codeRegex, '')
+    .replace(crappySingleQuoteRegex, "'")
+    .replace(crappyDoubleQuoteRegex, '"')
+  );
+}
