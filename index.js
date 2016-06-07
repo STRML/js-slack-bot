@@ -1,7 +1,7 @@
 'use strict';
 
 const Botkit = require('botkit');
-const vm = require('vm');
+const {VM} = require('vm2');
 const fs = require('fs');
 const path = require('path');
 const babel = require('babel-core');
@@ -23,8 +23,14 @@ controller.spawn({
   if (err) throw new Error(err);
 });
 
+const VM_OPTIONS = {
+  timeout: 1000,
+  sandbox: {}
+};
+const vm = new VM(VM_OPTIONS);
+
 const codeRegex = /(^`+|`+$)/g;
-const crappyQuoteRegex = /[‘’]*/g;
+const crappyQuoteRegex = /([‘’])/g;
 const babelRegex = /^babel(-node6)?:?\s*([\s\S]*)/i;
 controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], function(bot, message) {
   let {text} = message;
@@ -54,16 +60,9 @@ controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], func
     }
 
     // Regular eval
-    const result = vm.runInContext(text, createSandbox());
+    const result = vm.run(text);
     bot.reply(message, `\`${result && result.toString()}\``);
   } catch (e) {
     bot.reply(message, '```' + e.message + '```');
   }
 });
-
-function createSandbox() {
-  const sandbox = {};
-  Object.freeze(sandbox);
-  vm.createContext(sandbox);
-  return sandbox;
-}
