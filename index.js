@@ -30,12 +30,13 @@ const VM_OPTIONS = {
 const vm = new VM(VM_OPTIONS);
 
 const codeRegex = /(^`+|`+$)/g;
-const crappyQuoteRegex = /([‘’])/g;
+const crappySingleQuoteRegex = /([‘’])/g;
+const crappyDoubleQuoteRegex = /([“”])/g;
 const babelRegex = /^babel(-node6)?:?\s*([\s\S]*)/i;
 controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], function(bot, message) {
   let {text} = message;
   text = text.replace(codeRegex, '');
-  text = text.replace(crappyQuoteRegex, "'");
+  text = text.replace(crappySingleQuoteRegex, "'").replace(crappyDoubleQuoteRegex, '"');
 
   // Ping
   if (text === 'ping') return bot.reply('pong');
