@@ -53,7 +53,7 @@ controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], func
 
     // Regular eval
     const result = vm.runInContext(text, createSandbox());
-    bot.reply(message, `\`${result.toString()}\``);
+    bot.reply(message, `\`${result && result.toString()}\``);
   } catch (e) {
     bot.reply(message, '```' + e.message + '```');
   }
