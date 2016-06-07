@@ -55,7 +55,7 @@ controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], func
     const result = vm.runInContext(text, createSandbox());
     bot.reply(message, `\`${result.toString()}\``);
   } catch (e) {
-    bot.reply(message, '```' + e.stack + '```');
+    bot.reply(message, '```' + e.message + '```');
   }
 });
 
