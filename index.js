@@ -24,10 +24,12 @@ controller.spawn({
 });
 
 const codeRegex = /(^`+|`+$)/g;
+const crappyQuoteRegex = /[‘’]*/g;
 const babelRegex = /^babel(-node6)?:?\s*([\s\S]*)/i;
 controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], function(bot, message) {
   let {text} = message;
   text = text.replace(codeRegex, '');
+  text = text.replace(crappyQuoteRegex, "'");
 
   // Ping
   if (text === 'ping') return bot.reply('pong');
