@@ -18,9 +18,16 @@ var controller = Botkit.slackbot({
 });
 
 controller.spawn({
-  token: token
+  token: token,
+  // retry: Infinity // broken, see https://github.com/howdyai/botkit/issues/261
 }).startRTM(function(err) {
   if (err) throw new Error(err);
+  console.log('Slack connection opened.');
+});
+
+controller.on('rtm_close', function() {
+  console.error('Slack connection closed! Exiting.');
+  process.exit(1);
 });
 
 const VM_OPTIONS = {
