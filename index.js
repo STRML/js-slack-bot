@@ -56,6 +56,9 @@ controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], func
   // Ping
   if (text === 'ping') return bot.reply('pong');
 
+  // Shortcut for `help(this)`
+  if (text === 'help') text += '(this);';
+
   try {
     // Babel transpile
     const match = text.match(babelRegex);
