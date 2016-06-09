@@ -36,6 +36,16 @@ const VM_OPTIONS = {
 };
 const vm = new VM(VM_OPTIONS);
 
+//--- Built-ins
+
+vm.run(
+  'help = function(object) {' +
+  '  return Object.getOwnPropertyNames(object);' +
+  '};'
+);
+
+//--- End Built-ins
+
 const codeRegex = /(^`+|`+$)/g;
 const crappySingleQuoteRegex = /([‘’])/g;
 const crappyDoubleQuoteRegex = /([“”])/g;
