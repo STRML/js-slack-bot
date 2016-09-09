@@ -32,7 +32,9 @@ controller.on('rtm_close', function() {
 
 const VM_OPTIONS = {
   timeout: 1000,
-  sandbox: {}
+  sandbox: {
+    help: (o) => Object.getOwnPropertyNames(o)
+  }
 };
 const vm = new VM(VM_OPTIONS);
 
