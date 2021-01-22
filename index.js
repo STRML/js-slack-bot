@@ -5,7 +5,7 @@ const {VM} = require('vm2');
 const fs = require('fs');
 const path = require('path');
 const babel = require('babel-core');
-const entities = new (require('html-entities').AllHtmlEntities)();
+const entities = require('html-entities');
 
 const BABEL_PRESETS = ['es2015-loose', 'react', 'stage-0'];
 const BABEL_PRESETS_NODE6 = ['node6'].concat(BABEL_PRESETS.slice(1));

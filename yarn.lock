@@ -1521,10 +1521,10 @@ hosted-git-info@^2.1.4:
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.8.tgz#7539bd4bc1e0e0a895815a2e0262420b12858488"
   integrity sha512-f/wzC2QaWBs7t9IYqB4T3sR1xviIViXJRJTWBlx2Gf3g0Xi5vI7Yy4koXQ1c9OYDGHN9sBy1DQ2AB8fqZBWhUg==
 
-html-entities@^1.2.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-1.4.0.tgz#cfbd1b01d2afaf9adca1b10ae7dffab98c71d2dc"
-  integrity sha512-8nxjcBcd8wovbeKx7h3wTji4e6+rhaVuPNpMqwWgnHh+N9ToqsCs6XztWRBPQ+UtzsoMAdKZtUENoVzU/EMtZA==
+html-entities@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-2.0.4.tgz#40fadfbf0a5059fe887a522e82e5858146148bd3"
+  integrity sha512-0KXw8Jx9PuopSrUKiANKS4I8ovQvpIjcO14tvb5eco3qAgXIrf85roz48v0m+UPkoffmG/dgnWjCr9kU1vDlBA==
 
 http-errors@1.7.2:
   version "1.7.2"
