@@ -49,7 +49,7 @@ controller.hears(['[\\s\\S]*'],['direct_message','direct_mention','mention'], fu
   let {text} = message;
 
   // Ping
-  if (text === 'ping') return bot.reply('pong');
+  if (text === 'ping') return bot.reply(message, 'pong');
 
   try {
     // Babel transpile
