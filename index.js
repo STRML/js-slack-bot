@@ -32,9 +32,12 @@ controller.on('rtm_close', function() {
 
 const VM_OPTIONS = {
   timeout: 1000,
+  console: 'off',
   sandbox: {
-    help: (o) => Object.getOwnPropertyNames(o)
-  }
+    help: (o) => Object.getOwnPropertyNames(o),
+    crypto: require('crypto'),
+  },
+  fixAsync: true
 };
 const vm = new VM(VM_OPTIONS);
 
@@ -42,7 +45,7 @@ const codeRegex = /(^`+|`+$)/g;
 const crappySingleQuoteRegex = /([‘’])/g;
 const crappyDoubleQuoteRegex = /([“”])/g;
 const babelRegex = /^babel(-node6)?:?\s*([\s\S]*)/i;
-controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], function(bot, message) {
+controller.hears(['[\\s\\S]*'],['direct_message','direct_mention','mention'], function(bot, message) {
   let {text} = message;
 
   // Ping
@@ -71,7 +74,6 @@ controller.hears(['[\s\S]*'],['direct_message','direct_mention','mention'], func
       const result = vm.run(text);
       bot.reply(message, `\`${result && result.toString()}\``);
     }
-
   } catch (e) {
     bot.reply(message, '```' + e.message + '```');
   }
